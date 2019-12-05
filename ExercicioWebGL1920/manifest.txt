@@ -1,0 +1,2 @@
+original OBJ file: piramide.obj
+part1.json > alias: Piramide_Cube.001_Material.001

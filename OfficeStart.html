@@ -121,7 +121,7 @@ function initTransforms(){
 var fovy = 30;
 function updateTransforms(){
     if (projectionMode == PROJ_PERSPECTIVE){
-        mat4.perspective(fovy, c_width / c_height, 1, 400.0, pMatrix);
+        mat4.perspective(fovy, c_width / c_height, 8.3, 400.0, pMatrix);
     }
     else{
 		cw = c_width/250;
@@ -164,6 +164,7 @@ function configure(){
     //Creates and sets up the camera location
     camera = new Camera(CAMERA_TRACKING_TYPE);
     camera.goHome([1,1,8]);
+    //camera.setElevation(-90);
     camera.hookRenderer = draw;
     
     //Creates and sets up the mouse and keyboard interactor

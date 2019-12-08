@@ -121,7 +121,7 @@ function initTransforms(){
 var fovy = 30;
 function updateTransforms(){
     if (projectionMode == PROJ_PERSPECTIVE){
-        mat4.perspective(fovy, c_width / c_height, 8.3, 400.0, pMatrix);
+        mat4.perspective(fovy, c_width / c_height, 0.001, 400.0, pMatrix);
     }
     else{
 		cw = c_width/250;
@@ -163,7 +163,8 @@ function configure(){
     
     //Creates and sets up the camera location
     camera = new Camera(CAMERA_TRACKING_TYPE);
-    camera.goHome([1,1,8]);
+    //camera.goHome([1,1,8]);
+    camera.goHome([0.1,2.0,0.1]);
     //camera.setElevation(-90);
     camera.hookRenderer = draw;
     
@@ -197,6 +198,10 @@ function load(){
     // Load do Cubo e da Piramide
     Scene.loadObject('cubo.json','Cubo');
     Scene.loadObject('piramide.json','Piramide');
+
+    // Load do Pombo
+    //Scene.loadObject('pombo.json','Pombo');
+    Scene.loadObject('pombo-test.json','Pombo2');
 }
 
 

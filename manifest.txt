@@ -1,2 +1,2 @@
-original OBJ file: piramide.obj
-part1.json > alias: Piramide_Cube.001_Material.001
+original OBJ file: pombo-reduzido.obj
+part1.json > alias: gezi.002_gezi.002_wire_229166215

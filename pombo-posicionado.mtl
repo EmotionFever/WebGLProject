@@ -1,0 +1,15 @@
+# Blender MTL File: 'pombo-posicionado.blend'
+# Material Count: 1
+
+newmtl wire_229166215
+Ns 31.372549
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump D:\\Users\\bfreitas\\documents\\git\\fc51110\\1
+map_Kd D:\\Users\\bfreitas\\documents\\git\\fc51110\\Downloads\\Pombo\\Pombo\\color.jpg
+map_Ks D:\\Users\\bfreitas\\documents\\git\\fc51110\\Downloads\\Pombo\\Pombo\\sp.jpg

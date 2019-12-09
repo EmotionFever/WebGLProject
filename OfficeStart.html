@@ -145,7 +145,6 @@ function setMatrixUniforms(){
     mat4.transpose(camera.matrix, nMatrix);               //Calculates the Normal matrix 
     gl.uniformMatrix4fv(prg.uNMatrix, false, nMatrix);    //Maps the Normal matrix to the uniform prg.uNMatrix
     
-
 }
 
 /**
@@ -163,9 +162,15 @@ function configure(){
     
     //Creates and sets up the camera location
     camera = new Camera(CAMERA_TRACKING_TYPE);
-    //camera.goHome([1,1,8]);
-    camera.goHome([0.1,2.0,0.1]);
-    //camera.setElevation(-90);
+    camera.goHome([0.1,2.5,4.5]);
+    /* Posicoes basicas com camara certa:
+    frente      = (1,1,7)
+    tras        = (1,1,-7)  camera.setAzimuth(180)
+    direita     = (8,1,0)   camera.setAzimuth(90)
+    esquerda    = (-8,1,0)  camera.setAzimuth(270)
+    */
+    //camera.goHome([1,1,-7]);
+    //camera.setAzimuth(180);
     camera.hookRenderer = draw;
     
     //Creates and sets up the mouse and keyboard interactor
@@ -179,6 +184,8 @@ function configure(){
     
     //init gui with camera settings
     //initGUIWithCameraSettings();
+
+    mat4.rotate(camera.matrix, -15*Math.PI/180, [1,0,0]); // para a camara ficar com um angulo para baixo
     
     //init transforms
     initTransforms();
@@ -204,6 +211,7 @@ function load(){
     Scene.loadObject('pombo-test.json','Pombo2');
 }
 
+var distance = -4;
 
 /**
 * invoked on every rendering cycle
@@ -215,14 +223,25 @@ function draw() {
     try{
         
         updateTransforms();   
-        setMatrixUniforms(); 
+        setMatrixUniforms();
         
         gl.uniform1i(prg.uUpdateLight,updateLightPosition);
+
+        //camera.position[0] = 0.891873;
+        //camera.position[1] = 0.153457;
+        //camera.position[2] = -0.589528;
         
         for (var i = 0; i < Scene.objects.length; i++){
             
             var object = Scene.objects[i];
-            
+
+            //camera.azimuth = angle;
+
+            //mat4.identity(camera.matrix);
+            //mat4.translate(camera.matrix, [0.0, distance, 0.0]);
+            //mat4.rotate(camera.matrix, 30*Math.PI/180, [1,0,0]);
+            //mat4.rotate(mvMatrix, angle*Math.PI/180, [0,1,0]); // faz rodar em torno de si mesmo por y
+
             //Setting uniforms
             gl.uniform4fv(prg.uMaterialDiffuse, object.diffuse);
             gl.uniform1i(prg.uWireframe,object.wireframe);
@@ -266,6 +285,30 @@ function draw() {
         alert(err);
         console.error(err.description);
     }
+    animate();
+}
+
+var lastTime = 0;
+var angle = 0;
+/**
+* Updates the angle of rotation by a little bit each time
+*/
+function animate() {
+    var timeNow = new Date().getTime();
+    if (lastTime != 0) {
+        var elapsed = timeNow - lastTime;
+        angle += (90 * elapsed) / 10000000000.0;
+    }
+    lastTime = timeNow;
+}
+
+/**
+* Render Loop
+*/
+function renderLoop() {
+    requestAnimFrame(renderLoop);
+    draw();
+    animate();
 }
 
 /**

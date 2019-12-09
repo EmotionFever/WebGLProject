@@ -162,14 +162,8 @@ function configure(){
     
     //Creates and sets up the camera location
     camera = new Camera(CAMERA_TRACKING_TYPE);
-    camera.goHome([8,1,0]);
-    camera.setAzimuth(azim);
-    /* Posicoes basicas com camara certa:
-    frente      = (1,1,7)
-    tras        = (1,1,-7)  camera.setAzimuth(180)
-    direita     = (8,1,0)   camera.setAzimuth(90)
-    esquerda    = (-8,1,0)  camera.setAzimuth(270)
-    */
+    //camera.goHome([0.1,2.5,4.5]);
+    camera.goHome([0.1,2.0,0.1]);
     camera.hookRenderer = draw;
     
     //Creates and sets up the mouse and keyboard interactor
@@ -178,7 +172,7 @@ function configure(){
     
     //Update lights for this example
     gl.uniform4fv(prg.uLightAmbient,      [0.05,0.05,0.05,1.0]);
-    gl.uniform3fv(prg.uLightPosition,     [1.1, 1, 1.06]);
+    gl.uniform3fv(prg.uLightPosition,     [1.1, 1, 1.6]);
     gl.uniform4fv(prg.uLightDiffuse,      [0.7,0.7,0.7,1.0]);
     
     //init gui with camera settings
@@ -222,22 +216,6 @@ function draw() {
         setMatrixUniforms();
         
         gl.uniform1i(prg.uUpdateLight,updateLightPosition);
-
-        // MOVIMENTO DA CAMERA
-
-        var camera1 = new Camera(CAMERA_TRACKING_TYPE);
-        // ir para a posicao antiga
-        camera1.goHome([camera.position[0],camera.position[1],camera.position[2]]);
-
-        // aplicar a rotacao sobre um ponto
-        camera1.position[0] = 8 * Math.cos(angle);
-        camera1.position[1] = Math.cos(angle) + 1.1;
-        camera1.position[2] = 7 * Math.sin(angle);
-
-        // focar a camera nesse ponto
-        camera1.setAzimuth(azim);
-
-        camera = camera1;
         
         for (var i = 0; i < Scene.objects.length; i++){
             
@@ -286,32 +264,6 @@ function draw() {
         alert(err);
         console.error(err.description);
     }
-    animate();
-}
-
-var lastTime = 0;
-var angle = 0;
-var azim = 90;
-/**
-* Updates the angle of rotation by a little bit each time
-*/
-function animate() {
-    var timeNow = new Date().getTime();
-    if (lastTime != 0) {
-        var elapsed = 19.3;
-        angle = (angle + (90 * elapsed) / 1000000.0) % 360;
-        azim = (azim - (angle * 0.00001) - 0.1) % 360;
-    }
-    lastTime = timeNow;
-}
-
-/**
-* Render Loop
-*/
-function renderLoop() {
-    requestAnimFrame(renderLoop);
-    draw();
-    animate();
 }
 
 /**

@@ -162,7 +162,6 @@ function configure(){
     
     //Creates and sets up the camera location
     camera = new Camera(CAMERA_TRACKING_TYPE);
-    //camera.goHome([0.1,2.5,4.5]);
     camera.goHome([8,1,0]);
     camera.setAzimuth(azim);
     /* Posicoes basicas com camara certa:
@@ -171,8 +170,6 @@ function configure(){
     direita     = (8,1,0)   camera.setAzimuth(90)
     esquerda    = (-8,1,0)  camera.setAzimuth(270)
     */
-    //camera.goHome([1,1,-7]);
-    //camera.setAzimuth(180);
     camera.hookRenderer = draw;
     
     //Creates and sets up the mouse and keyboard interactor
@@ -209,7 +206,6 @@ function load(){
     Scene.loadObject('piramide.json','Piramide');
 
     // Load do Pombo
-    //Scene.loadObject('pombo.json','Pombo');
     Scene.loadObject('pombo-test.json','Pombo2');
 }
 

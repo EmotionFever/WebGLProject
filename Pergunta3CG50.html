@@ -223,8 +223,10 @@ function draw() {
         
         gl.uniform1i(prg.uUpdateLight,updateLightPosition);
 
-        // MOVIMENTO DA CAMERA
+        // MOVIMENTO DA LUZ ( alinea a) )
+        gl.uniform3fv(prg.uLightPosition,     [8 * Math.cos(angle), 1, 7 * Math.sin(angle)]);
 
+        // MOVIMENTO DA CAMERA ( alinea b) )
         var camera1 = new Camera(CAMERA_TRACKING_TYPE);
         // ir para a posicao antiga
         camera1.goHome([camera.position[0],camera.position[1],camera.position[2]]);
@@ -232,7 +234,7 @@ function draw() {
         // aplicar a rotacao sobre um ponto
         camera1.position[0] = 8 * Math.cos(angle);
         camera1.position[1] = Math.cos(angle) + 1.1;
-        camera1.position[2] = 7 * Math.sin(angle);
+        camera1.position[2] = 8 * Math.sin(angle);
 
         // focar a camera nesse ponto
         camera1.setAzimuth(azim);
